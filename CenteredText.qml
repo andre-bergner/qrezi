@@ -1,24 +1,16 @@
 import QtQuick 2.2
 
-Frame {
+Rectangle {
 
    property alias title:  t.text
-   property alias color:  rect.color
-   property alias border: rect.border
 
-   Rectangle {
+   antialiasing: true
+   color:        "#789"
 
-      id: rect
-
-      antialiasing: true
-      anchors.fill: parent
-      color:        "#789"
-
-      Text {
-         id: t
-         anchors.centerIn: parent
-         font.pointSize:   60
-         wrapMode:         Text.WordWrap
-      }
+   Text {
+      id: t
+      anchors.centerIn: parent
+      font.pointSize:   60
+      wrapMode:         Text.WordWrap
    }
 }

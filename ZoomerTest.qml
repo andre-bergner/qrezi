@@ -12,7 +12,7 @@ Rectangle {
 
       anchors.fill: parent
 
-      Frame { anchors.fill: parent }
+      Item { anchors.fill: parent }
 
       CenteredText {
          id: slide1
@@ -39,17 +39,15 @@ Rectangle {
             color: "#afb"; width: parent.width; height: 400
             title: "I'm the one to click"
          }
-         Frame {
-            width: parent.width; height: 400
-            Rectangle {
-               antialiasing: true
-               anchors.fill: parent
-               color: "#afb"
-               CenteredText {
-                  width:  parent.width
-                  height: parent.height
-                  color: "#987"; scale: 0.4; rotation: 120; title: "Hello"
-               }
+         Rectangle {
+            width: parent.width
+            height: 400
+            antialiasing: true
+            color: "#afb"
+            CenteredText {
+               width:  parent.width
+               height: parent.height
+               color: "#987"; scale: 0.4; rotation: 120; title: "Hello"
             }
          }
       }

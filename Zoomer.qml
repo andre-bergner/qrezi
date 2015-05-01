@@ -14,6 +14,13 @@ Item {
    property int     animation_time: 800
 
 
+   function to_angle( rad )       { return 180 * rad / Math.PI }
+   function to_rad( angle )       { return Math.PI * angle / 180 }
+   function mod( x , m )          { return ( x%m + m ) % m }
+   function bound_angle( angle )  { return mod( angle+180 , 360) - 180 }
+   function hypotenuse( dx , dy ) { return Math.sqrt( dx*dx + dy*dy ) }
+
+
    Item {
 
       id: transformer
@@ -23,9 +30,6 @@ Item {
       property variant current_frame:   canvas
 
       onCurrent_frameChanged: updateSlides()
-
-
-      function hypotenuse( dx , dy ) { return Math.sqrt( dx*dx + dy*dy ) }
 
       function get_rect(item) {
          var p00 = transformer.mapFromItem( item, 0, 0 )
@@ -37,11 +41,9 @@ Item {
                   , width:    p11.x-p00.x
                   , height:   p11.y-p00.y
                   , scale:    hypotenuse( p00.x - p01.x , p00.y - p01.y ) / item.height
-                  , rotation: 180 - Math.atan2( p00.x - p01.x , p00.y - p01.y ) * 180 / Math.PI
+                  , rotation: 180 - to_angle( Math.atan2( p00.x - p01.x , p00.y - p01.y ))
                   }
       }
-
-      function bound_angle( angle ) { return (angle+180) % 360 - 180 }
 
       function updateSlides() {
          var s = current_frame
@@ -49,7 +51,7 @@ Item {
          translator.x  =  -r.x + (root.width - r.width) / 2
          translator.y  =  -r.y + (root.height - r.height) / 2
          scaler.scale  =  1.0 / ( r.scale * Math.max( s.width / root.width, s.height / root.height ) )
-         rotator.angle -= bound_angle(rotator.angle+r.rotation)
+         rotator.angle -= bound_angle( rotator.angle + r.rotation )
       }
 
       transform: [
@@ -82,8 +84,9 @@ Item {
       anchors.fill: parent
       propagateComposedEvents: true
 
-      property var _canvas_pos: Qt.point(0,0)
-      property var _mouse_pos: Qt.point(0,0)
+      property var  _canvas_pos:     Qt.point(0,0)
+      property var  _mouse_pos:      Qt.point(0,0)
+      property bool _started_moving: false
 
       onWheel: {
          scaleAni.enabled = false
@@ -92,20 +95,40 @@ Item {
          scaleAni.enabled = true
       }
 
+      function item_at( item, p ) {
+         var child = item.childAt( p.x, p.y )
+         return child == null
+                ? item
+                : item_at( child, child.mapFromItem( item, p.x, p.y ) )
+      }
+
+      onClicked: {
+         if ( ! _started_moving ) {
+            var p = transformer.mapFromItem( this, mouse.x, mouse.y )
+            var child = item_at( transformer, p )
+            if ( child != null )  current_frame = child
+            _started_moving = false
+         }
+      }
+
       onPressed: {
+         _started_moving = false
          xAni.enabled = false
          yAni.enabled = false
          _canvas_pos = Qt.point( translator.x, translator.y ) 
          _mouse_pos = Qt.point( mouse.x, mouse.y )
          mouse.accepted = true
       }
+
       onReleased: {
          xAni.enabled = true
          yAni.enabled = true
       }
+
       onPositionChanged: {
-         var s = Math.sin( -Math.PI * rotator.angle / 180 )
-         var c = Math.cos( -Math.PI * rotator.angle / 180 )
+         _started_moving = true
+         var s = Math.sin( -to_rad( rotator.angle ))
+         var c = Math.cos( -to_rad( rotator.angle ))
          var dx = mouse.x - _mouse_pos.x
          var dy = mouse.y - _mouse_pos.y
          translator.x = _canvas_pos.x + (c*dx - s*dy) / scaler.scale
