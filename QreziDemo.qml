@@ -11,6 +11,7 @@ Rectangle {
       slides:  [ slide1
                , slide2
                , slide3
+               , slide4
                ]
 
       anchors.fill: parent
@@ -59,11 +60,22 @@ Rectangle {
       }
 
 
-      CenteredText {
+      Code {
 
          id:   slide3
 
-         title: "More stuff"
+         code:
+"
+template< typename X >
+struct fency {
+   X foo() { return X{1337}; }
+};
+
+auto lambda = [](int b) { return b + a; }
+
+int main() { std::cout << fency::foo() << std::endl;  }
+
+"
 
          x:      -100
          y:      -150
@@ -72,7 +84,6 @@ Rectangle {
 
          width:   800
          height:  500
-         color:  "#789"
 
          border {
             width: 2
@@ -81,7 +92,9 @@ Rectangle {
       }
 
 
-      CenteredText {
+      Code {
+
+         id: slide4
 
          x:    -120
          y:    0
@@ -91,9 +104,21 @@ Rectangle {
          width:   800
          height:  400
 
-         color: "#aa7"
+         code:
+"
+var head = function( xs ) {
+   return xs[0]
+}
 
-         title: "You can zoom as well"
+var tail = function( xs ) {
+   return xs.slice(1)
+}
+
+var fold = function( f, x, xs ) {
+   return fold( f, f(x,head(xs)), tail(xs) )
+}
+"
+         language: "javascript"
       }
 
    }
