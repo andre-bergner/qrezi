@@ -5,7 +5,7 @@ Description: x86 assembly language using Intel's mnemonic and NASM syntax
 Category: assembler
 */
 
-function(hljs) {
+var register = function(hljs) {
   return {
     case_insensitive: true,
     lexemes: '\\.?' + hljs.IDENT_RE,

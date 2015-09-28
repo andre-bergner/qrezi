@@ -7,6 +7,10 @@ Item {
    width:  800
    height: 450
 
+   property alias current_x:     translator.x
+   property alias current_y:     translator.y
+   property alias current_scale: scaler.scale
+
    default property alias frames:          transformer.children
    property alias         current_frame:   transformer.current_frame
    property int           animation_time:  800
@@ -18,6 +22,22 @@ Item {
    function bound_angle( angle )  { return mod( angle+180 , 360) - 180 }
    function hypotenuse( dx , dy ) { return Math.sqrt( dx*dx + dy*dy ) }
 
+   onWidthChanged:  transformer.updateSlides()
+   onHeightChanged: transformer.updateSlides()
+
+   function ancestors(p)
+   {
+      var ps = []
+      while ( p = p.parent ) ps.push(p)
+      return ps
+   }
+
+   function any_of( xs, p )
+   {
+      for ( var n = 0; n < xs.length; ++n )
+         if (p(xs[n])) return true
+      return false
+   }
 
    Item {
 
@@ -25,7 +45,7 @@ Item {
 
       anchors.fill: parent
 
-      property variant current_frame:   canvas
+      property variant current_frame: root
 
       onCurrent_frameChanged: updateSlides()
 
@@ -128,6 +148,18 @@ Item {
       }
 
       onWheel: {
+
+         // This is a little hack to forward wheel event to flickables and don't scroll
+         // Unfortunately this requeires to know the name (or type) of the item
+         // TODO find better solution, flickable should be able to steal, requires bubble up events
+         var p = transformer.mapFromItem( this, wheel.x, wheel.y )
+         var child = item_at( transformer, p )
+         if ( any_of( ancestors(child) , function(p){ return p.objectName == "CodeView" }) )
+         {
+            wheel.accepted = false
+            return
+         }
+
          scaleAni.enabled = false
          if (wheel.angleDelta.y < 0) scaler.scale /= 1. - 0.001 * wheel.angleDelta.y
          else                        scaler.scale *= 1. + 0.001 * wheel.angleDelta.y

@@ -75,48 +75,29 @@ Zoomer {
 
    function is_slide(s) { return contains(slides,s) }
 
-   function first_of( x , p )
+   function first_of( xs , p )
    {
-      for ( var n = 0; n < x.length; ++n )
-         if (p(x[n])) return x[n]
+      for ( var n = 0; n < xs.length; ++n )
+         if (p(xs[n])) return xs[n]
       return undefined
    }
-
-   function ancestors(p)
-   {
-      var ps = []
-      while ( p.parent )
-      {
-         p = p.parent
-         ps.push(p)
-      }
-      return ps
-   }
-   /*
-   function nex_slide_above( p )
-   {
-      return  p == null
-              ? slides[0]
-              : contains(slides,p)
-                ? p
-                : next_slide_above( p.parent )
-   }*/
 
    function closest_slide( f )
    {
       return  first_of( ancestors(f), is_slide ) || slides[0]
    }
 
+   function advance_slide()
+   {
+      var n = slides.indexOf( current_frame )
+      if ( n+1 < slides.length ) current_frame = slides[n+1]
+      else                       current_frame = slides[0]
+   }
+
    function next_view()
    {
       if ( next_state() ) return
-
-      var n = slides.indexOf( current_frame )
-      if ( n != -1 )
-      {
-         if ( n+1 < slides.length ) current_frame = slides[n+1]
-         else                       current_frame = slides[0]
-      }
+      if ( contains( slides, current_frame ) ) advance_slide()
       else  current_frame = closest_slide( current_frame )
    }
 

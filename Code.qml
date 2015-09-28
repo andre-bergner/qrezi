@@ -1,7 +1,11 @@
 import QtQuick 2.2
 import "hljs/highlight.js" as HLJS
-import "hljs/languages/cpp.js" as Lang_cpp
+
+import "hljs/languages/cpp.js"        as Lang_cpp
 import "hljs/languages/javascript.js" as Lang_javascript
+import "hljs/languages/haskell.js"    as Lang_haskell
+import "hljs/languages/x86asm.js"     as Lang_x86asm
+
 
 Rectangle {
 
@@ -9,10 +13,13 @@ Rectangle {
 
    property string code:      "template<int n> class Goedel : Goedel<n-1> {};"
    property string language:  "c++"
+   property string style:     "monokai"
 
    property alias  font: text_item.font
 
    color: text_item.background_from_css
+
+   height: text_item.contentHeight
 
    Text {
 
@@ -27,7 +34,7 @@ Rectangle {
       //font.weight: Font.Light
       textFormat: Text.RichText
 
-      Component.onCompleted: load_css_file( "hljs/styles/monokai.css" )
+      Component.onCompleted: load_css_file( "hljs/styles/" + item.style + ".css" )
 
       text: add_css( highlight( item.code ), _css )
 
@@ -40,17 +47,22 @@ Rectangle {
          var hljs = HLJS.hljs()
          var ls = [ ["c++"        , Lang_cpp        ]
                   , ["javascript" , Lang_javascript ]
+                  , ["haskell"    , Lang_haskell    ]
+                  , ["x86asm"    , Lang_x86asm      ]
                   ]
          ls.forEach( function(l){ hljs.registerLanguage( l[0], l[1].register ) })
          return hljs
       }
 
-      property string _css: ""
-      property string background_from_css: {
-         //console.log( /test ([#1-9]{4});/g.exec("test 1#23;") )
-         var match = /background:\s*([#1-9a-zA-Z].+);/g.exec(_css)
-         return match ? match[1] : "#000"
+      function get_background_from_css(css) {
+         var match_trials = 10    // for some very weird reason a match might fail several times
+         for ( var match = null ; ! match && match_trials ; --match_trials )
+            match = /background:\s*([#1-9a-zA-Z].+);/g.exec(css)
+         return match ? match[1] : "#fff"
       }
+
+      property string _css: ""
+      property string background_from_css: get_background_from_css(_css)
 
       function load_css_file( file_name )
       {
@@ -58,8 +70,7 @@ Rectangle {
          request.open( 'GET', file_name )
          request.onreadystatechange = function(event)
          {
-            if (request.readyState == XMLHttpRequest.DONE)
-               _css = request.responseText
+            if (request.readyState == XMLHttpRequest.DONE)  _css = request.responseText
          }
          request.send()
       }

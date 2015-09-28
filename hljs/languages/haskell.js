@@ -5,7 +5,7 @@ Contributors: Zena Treep <zena.treep@gmail.com>
 Category: functional
 */
 
-function(hljs) {
+var register = function(hljs) {
   var COMMENT_MODES = [
     hljs.COMMENT('--', '$'),
     hljs.COMMENT(

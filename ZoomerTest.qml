@@ -1,10 +1,39 @@
 import QtQuick 2.2
+import QtGraphicalEffects  1.0
 
 Rectangle {
 
    width: 800
    height: 500
    color:  '#000'
+
+   Item {
+
+      width: 800
+      height: 500
+
+      CenteredText {
+         id: background
+         anchors.fill: parent
+         title: "B A C K G R O U N D"
+         font.pointSize: 40
+         color: "#345"
+      }
+
+      GaussianBlur {
+         anchors.fill: background
+
+         visible: true
+         source:  background
+         radius:  30 / ( canvas.current_scale + 1)
+         samples: 32
+      }
+
+
+      x:  100 + canvas.current_x * 0.1
+      y:  canvas.current_y * 0.1
+      scale: 1.5 + canvas.current_scale * 0.1
+   }
 
    Zoomer {
 

@@ -1,4 +1,5 @@
 import QtQuick 2.2
+import QtGraphicalEffects  1.0
 
 Rectangle {
 
@@ -6,9 +7,42 @@ Rectangle {
    height: 500
    color:  '#000'
 
+
+   Item {
+
+      width: 800
+      height: 500
+
+      CenteredText {
+         id: background
+         anchors.fill: parent
+         title: "B A C K G R O U N D"
+         font.pointSize: 40
+         color: "#345"
+      }
+
+      GaussianBlur {
+         anchors.fill: background
+
+         visible: true
+         source:  background
+         radius:  40 / ( qrezi.current_scale + 1)
+         samples: 32
+      }
+
+
+      x:  100 + qrezi.current_x * 0.1
+      y:  qrezi.current_y * 0.1
+      scale: 1.5 + qrezi.current_scale * 0.1
+   }
+
+
    Qrezi {
 
+      id: qrezi
+
       slides:  [ slide1
+               , slide1.children[0]
                , slide2
                , slide3
                , slide4
@@ -27,7 +61,7 @@ Rectangle {
          height:   350
          scale:    0.7
          rotation: 90
-         color:    "#789"
+         color:    "#33778899"
 
          title: "Slide 1"
       }
@@ -92,7 +126,7 @@ int main() { std::cout << fency::foo() << std::endl;  }
       }
 
 
-      Code {
+      CodeView {
 
          id: slide4
 
@@ -104,6 +138,7 @@ int main() { std::cout << fency::foo() << std::endl;  }
          width:   800
          height:  400
 
+         font.pointSize: 30
          code:
 "
 var head = function( xs ) {
@@ -119,6 +154,7 @@ var fold = function( f, x, xs ) {
 }
 "
          language: "javascript"
+         style:    "paraiso.light"
       }
 
    }
