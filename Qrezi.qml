@@ -7,7 +7,13 @@ Zoomer {
 
 
    property variant slides: this.frames
-   current_frame: slides[0]
+   property int current_slide: 0
+
+   onCurrent_slideChanged: current_frame = slides[current_slide]
+
+
+
+
 
    focus: true
 
@@ -23,7 +29,17 @@ Zoomer {
             event.accepted = true
             break
          }
+         case Qt.Key_PageDown: {
+            next_view()
+            event.accepted = true
+            break
+         }
          case Qt.Key_Left: {
+            prev_view()
+            event.accepted = true
+            break
+         }
+         case Qt.Key_PageUp: {
             prev_view()
             event.accepted = true
             break
@@ -87,30 +103,24 @@ Zoomer {
       return  first_of( ancestors(f), is_slide ) || slides[0]
    }
 
-   function advance_slide()
-   {
-      var n = slides.indexOf( current_frame )
-      if ( n+1 < slides.length ) current_frame = slides[n+1]
-      else                       current_frame = slides[0]
-   }
-
    function next_view()
    {
       if ( next_state() ) return
-      if ( contains( slides, current_frame ) ) advance_slide()
-      else  current_frame = closest_slide( current_frame )
+      if ( contains( slides, current_frame ) ) current_slide = mod(++current_slide, slides.length)
+      else  {
+         current_frame = closest_slide( current_frame )
+         current_slide = slides.indexOf( current_frame )
+      }
+      // does not work?: else  current_slide = slides.indexOf( closest_slide( current_frame ) )
    }
 
    function prev_view()
    {
       if ( prev_state() )  return
-
-      var n = slides.indexOf( current_frame )
-      if ( n != -1 )
-      {
-         if ( n > 0 ) current_frame = slides[n-1]
-         else         current_frame = slides[slides.length-1]
+      if ( contains( slides, current_frame ) ) current_slide = mod(--current_slide, slides.length)
+      else  {
+         current_frame = closest_slide( current_frame )
+         current_slide = slides.indexOf( current_frame )
       }
-      else  current_frame = closest_slide( current_frame )
    }
 }

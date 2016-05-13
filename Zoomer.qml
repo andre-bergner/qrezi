@@ -22,8 +22,11 @@ Item {
    function bound_angle( angle )  { return mod( angle+180 , 360) - 180 }
    function hypotenuse( dx , dy ) { return Math.sqrt( dx*dx + dy*dy ) }
 
-   onWidthChanged:  transformer.updateSlides()
-   onHeightChanged: transformer.updateSlides()
+   // This is required for automatic update at window resizing, e.g. going full screen
+   // For some reason division by zero at start up breaks the internal state.
+   // TODO investigate further
+   // onWidthChanged:  transformer.updateSlides()
+   // onHeightChanged: transformer.updateSlides()
 
    function ancestors(p)
    {
