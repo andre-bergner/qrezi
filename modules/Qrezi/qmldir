@@ -1,0 +1,8 @@
+module Qrezi
+
+Qrezi          0.1   Qrezi.qml
+Zoomer         0.1   Zoomer.qml
+Code           0.1   Code.qml
+CodeWithText   0.1   CodeWithText.qml
+Flipper        0.1   Flipper.qml
+Topic          0.1   Topic.qml

@@ -1,0 +1,11 @@
+{   "folders":
+    [   { "path" : "./" }
+    ]
+,   "build_systems":
+    [   {   "name"  : "C++Now 2016 Lightning Talk"
+        ,   "cmd"   : ["qmlscene main.qml -I ../../modules"]
+        ,   "shell" : "true"
+        }
+    ]
+}
+
