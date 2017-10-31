@@ -1,36 +1,67 @@
 import QtQuick 2.2
 
-Flickable
-{
-   id: flickable
-   objectName: "CodeView"
+Item {
 
    property alias code:       code_item.code
    property alias font:       code_item.font
    property alias language:   code_item.language
    property alias style:      code_item.style
 
-   boundsBehavior: Flickable.StopAtBounds
+   property alias boundsBehavior: flickable.boundsBehavior
 
-   flickableDirection: Flickable.VerticalFlick
-   clip: true
-
-   contentWidth:  code_item.width
-   contentHeight: code_item.height
-   height: contentHeight
-
-   Code
+   Flickable
    {
-      id: code_item
-      code:"
-foo()
-bar()
-baz<1,2,3>(4,5,6)
+      id: flickable
+      objectName: "CodeView"
 
-auto x = [](){};
-auto y = []{}();
-"
+      anchors.fill: parent
 
-      width:  flickable.width
+      boundsBehavior: Flickable.StopAtBounds
+
+      flickableDirection: Flickable.VerticalFlick
+      clip: true
+
+      contentWidth:  code_item.width
+      contentHeight: code_item.height
+      height: contentHeight
+
+      Code
+      {
+         id: code_item
+         code:"
+   foo()
+   bar()
+   baz<1,2,3>(4,5,6)
+
+   auto x = [](){};
+   auto y = []{}();
+   "
+
+         width:  flickable.width
+      }
+
    }
+
+   Item {
+      id: scrollBar
+      z: 2
+      anchors.right: parent.right
+      anchors.top: parent.top
+      anchors.bottom: parent.bottom
+      anchors.rightMargin: 2
+
+      visible: flickable.contentHeight - scrollBar.height > 0
+
+      width: 10
+
+      Rectangle {
+         id: handle
+         height: 80
+         width:  10
+         radius: 5
+         color: '#44ffffff'
+         y: (scrollBar.height-handle.height) * flickable.contentY / (flickable.contentHeight-scrollBar.height)
+      }
+   }
+
 }
