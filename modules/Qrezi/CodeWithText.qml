@@ -4,6 +4,7 @@ Rectangle {
 
    property alias text:       text_item.text
    property alias text_size:  text_item.s
+   property alias text_shadow:text_item.shadow
    property alias code:       code_item.code
    property alias code_size:  code_item.font.pointSize
    property alias language:   code_item.language
