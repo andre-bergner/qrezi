@@ -2,79 +2,66 @@ import QtQuick 2.2
 import Qrezi 0.1
 
 
-Rectangle {
+Qrezi {
 
-   id: root
+   id: qrezi
 
-   readonly property int slide_width:  800
-   readonly property int slide_height: 450
+   slides: []
 
-   readonly property var slide_color: "transparent"
+   onSlidesChanged: current_slide = 0
 
-   width:  slide_width
-   height: slide_height
-   color:  '#222'
-
-   Qrezi {
-
-
-      id: qrezi
-
-      slides: []
-
-      onSlidesChanged: current_slide = 0
-
-
+   background: Rectangle {
+      color:  '#222'
       anchors.fill: parent
+   }
 
-      Column {
-         id: markdown_parser
+   Column {
+      id: markdown_parser
 
-         width: parent.width
-         spacing: 5
+      width: qrezi.width
+      spacing: 5
 
-         property var markdown:
-"
-# Slide1
+      property var markdown:
+         "
+         # Slide1
 
-Lorem Ipsum
+         Lorem Ipsum
 
-# Test123
+         # Test123
 
-Content Content Content Content
+         Content Content Content Content
 
-# AnotherOne
-"
+         # AnotherOne
+         "
 
-         Component.onCompleted: {
+      Component.onCompleted: {
 
-            var lines = markdown_parser.markdown.split('\n');
-            for (var l in lines)
+         var lines = markdown_parser.markdown.split('\n');
+         for (var l in lines)
+         {
+            var line = lines[l].trim();
+            if (line[0] === '#')
             {
-               var line = lines[l].trim();
-               if (line[0] === '#')
-               {
-                  var item = Qt.createQmlObject("
-                     import QtQuick 2.2
+               var item = Qt.createQmlObject("
+                  import QtQuick 2.2
 
-                     Rectangle {
-                        width: 800
-                        height: 450
-                        color: '#44ffffff'
-                        Text {
-                           anchors.centerIn: parent
-                           text: '"+line.split('#')[1].trim()+"'
-                           font.pointSize: 40
-                           color: '#fff'
-                        }
+                  Rectangle {
+                     width: 800
+                     height: 450
+                     color: '#44ffffff'
+                     Text {
+                        anchors.centerIn: parent
+                        text: '"+line.split('#')[1].trim()+"'
+                        font.pointSize: 40
+                        color: '#fff'
                      }
-                  ", markdown_parser)
-                  qrezi.slides.push(item)
-                  console.log('Adding slide: ' + line)
-               }
+                  }
+               ", markdown_parser)
+               qrezi.slides.push(item)
+               console.log('Adding slide: ' + line)
             }
          }
       }
-
    }
+
 }

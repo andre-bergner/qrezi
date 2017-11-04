@@ -11,7 +11,7 @@ Item {
    property alias current_y:     translator.y
    property alias current_scale: scaler.scale
 
-   default property alias frames:          transformer.children
+   default property alias frames:          transformer.data
    property alias         current_frame:   transformer.current_frame
    property int           animation_time:  800
 
