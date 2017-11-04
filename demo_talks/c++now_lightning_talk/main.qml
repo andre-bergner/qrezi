@@ -9,6 +9,8 @@ Qrezi {
 
    FontLoader { source: "Adequate-ExtraLight.ttf" }
 
+   config.text_color: '#fff'
+
    background: Item {
 
       Slides.SpotLights {
@@ -48,12 +50,8 @@ Qrezi {
 
    current_frame: title
 
-   Component.onCompleted: { next_view(); prev_view() }
-
-   Item {
+   Frame {
       id: title
-      width: slide_width
-      height: slide_height
 
       Text {
 
@@ -72,8 +70,8 @@ Qrezi {
 
    Slides.WeirdCast {
       id: cpp
-      width: slide_width
-      height: slide_height
+      width: config.slide_width
+      height: config.slide_height
       // x: 92
       // y: 5
       scale: 0.01
@@ -82,8 +80,8 @@ Qrezi {
 
    Slides.Braces {
       id: braces
-      width: slide_width
-      height: slide_height
+      width: config.slide_width
+      height: config.slide_height
       y: 20
       scale: 0.01
    }
@@ -92,8 +90,8 @@ Qrezi {
    Topic {
       id: presentation_frameworks
 
-      width:   slide_width
-      height:  slide_height
+      width:   config.slide_width
+      height:  config.slide_height
       x: 0
       y: -800
       scale: 3
@@ -134,8 +132,8 @@ Qrezi {
 
    Slides.Pqrezi {
       id: pqrezi
-      width: slide_width
-      height: slide_height
+      width: config.slide_width
+      height: config.slide_height
       x: 2000
       y: -500
       scale: 3
@@ -146,8 +144,8 @@ Qrezi {
    Topic {
       id: qrezi_info
 
-      width:   slide_width
-      height:  slide_height
+      width:   config.slide_width
+      height:  config.slide_height
 
       x: 3200
       y: -500
@@ -187,8 +185,8 @@ Qrezi {
    Slides.ThisPresi {
       id: this_presi
 
-      width:   slide_width
-      height:  slide_height
+      width:   config.slide_width
+      height:  config.slide_height
 
       x: 1500
       y: 1200

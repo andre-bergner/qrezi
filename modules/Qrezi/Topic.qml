@@ -2,19 +2,24 @@ import  QtQuick 2.0
 import  QtGraphicalEffects  1.0
 import "../"
 
-Item {
+Frame {
 
     id: slide
 
     property alias title:   titleText.text
     property alias bullets: listView.model
-    property string text_font:   "Optima"
-    property var main_point_markers: ["•","●"]
 
+    property bool text_shadow: true
+
+    property string text_font:   "Optima"
+    property variant main_point_markers: ["•","●"]
+
+    property alias title_size:  titleText.font.pointSize
     property int font_size:   40
     property int font_size12: font_size
     property int font_size2:  font_size
     property int font_size22: font_size
+    property variant font_color: qrezi_config.text_color
 
     property real x1: 80
     property real y1: 100
@@ -22,9 +27,6 @@ Item {
     property real y2: 50
 
     antialiasing: true
-
-    //width:   parent.width
-    //height:  parent.height
 
     Item {
 
@@ -35,11 +37,11 @@ Item {
 
         Text {
             id: titleText
-            scale: 7
+            font.pointSize:  7*13
             anchors.centerIn: parent
             font.family: "Adequate"
             text: "topic"
-            color: "#fff"
+            color: font_color
         }
     }
 
@@ -49,7 +51,7 @@ Item {
         anchors.fill: parent
         source: slide_content2
         radius: 1
-        samples: 32
+        samples: 48
 
         Behavior on radius  { NumberAnimation { duration: 400; easing.type: Easing.OutCubic } }
         Behavior on opacity { NumberAnimation { duration: 400; easing.type: Easing.OutCubic } }
@@ -92,9 +94,10 @@ Item {
                                    ?  slide.font_size12
                                    :  slide.font_size
                                 :  slide.font_size2
-                textFormat:     Text.RichText
-                text:           modelData
-                color:          "#fff"
+                textFormat: Text.RichText
+                text:       modelData
+                color:      font_color
+                shadow:     text_shadow
 
                 Behavior on opacity {
                     NumberAnimation { duration: 200; easing.type: Easing.InOutQuad }

@@ -5,10 +5,10 @@ Item {
 
    id: slide
 
-   readonly property variant _qrezi_config: _search_qrezi_config()
+   readonly property variant qrezi_config: _search_qrezi_config()
 
-   width:   _qrezi_config ? _qrezi_config.slide_width : 800
-   height:  _qrezi_config ? _qrezi_config.slide_height : 450
+   width:   qrezi_config ? qrezi_config.slide_width : 800
+   height:  qrezi_config ? qrezi_config.slide_height : 450
 
 
    function _find_qrezi()

@@ -3,7 +3,7 @@ import  QtGraphicalEffects  1.0
 
 Item {
 
-   property bool shadow: shadow_item.visible
+   property alias shadow: shadow_item.visible
 
    property int contentWidth: item.contentWidth
    property int contentHeight: item.contentHeight
@@ -37,11 +37,11 @@ Item {
       anchors.fill:  item
       source:        item
 
-      horizontalOffset: 3
-      verticalOffset: 3
+      horizontalOffset: 2
+      verticalOffset: 2
 
-      radius: 8.0
-      samples: 16
+      radius: 4.0
+      samples: 8
       color: "#bb000000"
    }
 
