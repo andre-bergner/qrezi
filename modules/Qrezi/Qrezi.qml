@@ -150,7 +150,7 @@ Item {
          //else
             if ( next_state() ) return
 
-         if ( contains( slides, current_frame ) ) current_slide = mod(++current_slide, slides.length)
+         if ( contains( slides, current_frame ) ) current_slide = mod(current_slide+1, slides.length)
          else  {
             current_frame = closest_slide( current_frame )
             current_slide = slides.indexOf( current_frame )
@@ -161,7 +161,7 @@ Item {
       function prev_view()
       {
          if ( prev_state() )  return
-         if ( contains( slides, current_frame ) ) current_slide = mod(--current_slide, slides.length)
+         if ( contains( slides, current_frame ) ) current_slide = mod(current_slide-1, slides.length)
          else  {
             current_frame = closest_slide( current_frame )
             current_slide = slides.indexOf( current_frame )
