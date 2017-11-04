@@ -18,7 +18,6 @@ ShaderEffect {
 
     fragmentShader: "
         uniform float time;
-        uniform vec2 mouse;
 
         varying  highp vec2 qt_TexCoord0;
 
