@@ -10,6 +10,8 @@ Qrezi {
 
    onSlidesChanged: current_slide = 0
 
+   config.slide_height: 600
+
    background: Rectangle {
       color:  '#222'
       anchors.fill: parent
@@ -21,7 +23,7 @@ Qrezi {
       width: qrezi.width
       spacing: 5
 
-      property var markdown:
+      property variant markdown:
          "
          # Slide1
 
@@ -44,16 +46,18 @@ Qrezi {
             {
                var item = Qt.createQmlObject("
                   import QtQuick 2.2
+                  import Qrezi 0.1
 
-                  Rectangle {
-                     width: 800
-                     height: 450
-                     color: '#44ffffff'
-                     Text {
-                        anchors.centerIn: parent
-                        text: '"+line.split('#')[1].trim()+"'
-                        font.pointSize: 40
-                        color: '#fff'
+                  Frame {
+                     Rectangle {
+                        anchors.fill: parent
+                        color: '#44ffffff'
+                        Text {
+                           anchors.centerIn: parent
+                           text: '"+line.split('#')[1].trim()+"'
+                           font.pointSize: 40
+                           color: '#fff'
+                        }
                      }
                   }
                ", markdown_parser)

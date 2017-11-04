@@ -3,12 +3,12 @@ import QtQuick 2.2
 Item {
 
    id: qrezi
+   objectName: "qrezi"
 
-   readonly property int slide_width:  800
-   readonly property int slide_height: 450
+   property Config config: Config {}
 
-   width:  slide_width
-   height: slide_height
+   width:  config.slide_width
+   height: config.slide_height
 
    property alias slides: zoomer.slides
    property alias current_slide: zoomer.current_slide
@@ -22,7 +22,6 @@ Item {
 
    property alias background: background_holder.children
    property alias foreground: foreground_holder.children
-
 
    Item {
       id: background_holder
