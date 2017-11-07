@@ -16,9 +16,9 @@ Item {
 
    default property alias items: zoomer.frames
 
-   property alias current_x:     zoomer.x
-   property alias current_y:     zoomer.y
-   property alias current_scale: zoomer.scale
+   property alias current_x:     zoomer.current_x
+   property alias current_y:     zoomer.current_y
+   property alias current_scale: zoomer.current_scale
 
    property alias background: background_holder.children
    property alias foreground: foreground_holder.children
