@@ -2,12 +2,13 @@
 Language: Clojure
 Description: Clojure syntax (based on lisp.js)
 Author: mfornos
+Contributors: Martin Clausen <martin.clausene@gmail.com>
 Category: lisp
 */
 
 function(hljs) {
   var keywords = {
-    built_in:
+    'builtin-name':
       // Clojure keywords
       'def defonce cond apply if-not if-let if not not= = < > <= >= == + / * - rem '+
       'quot neg? pos? delay? symbol? keyword? true? false? integer? empty? coll? list? '+
@@ -63,7 +64,6 @@ function(hljs) {
     begin: /\b(true|false|nil)\b/
   };
   var COLLECTION = {
-    className: 'collection',
     begin: '[\\[\\{]', end: '[\\]\\}]'
   };
   var HINT = {
@@ -72,11 +72,10 @@ function(hljs) {
   };
   var HINT_COL = hljs.COMMENT('\\^\\{', '\\}');
   var KEY = {
-    className: 'attribute',
-    begin: '[:]' + SYMBOL_RE
+    className: 'symbol',
+    begin: '[:]{1,2}' + SYMBOL_RE
   };
   var LIST = {
-    className: 'list',
     begin: '\\(', end: '\\)'
   };
   var BODY = {
@@ -86,7 +85,7 @@ function(hljs) {
   var NAME = {
     keywords: keywords,
     lexemes: SYMBOL_RE,
-    className: 'keyword', begin: SYMBOL_RE,
+    className: 'name', begin: SYMBOL_RE,
     starts: BODY
   };
   var DEFAULT_CONTAINS = [LIST, STRING, HINT, HINT_COL, COMMENT, KEY, COLLECTION, NUMBER, LITERAL, SYMBOL];
@@ -94,6 +93,7 @@ function(hljs) {
   LIST.contains = [hljs.COMMENT('comment', ''), NAME, BODY];
   BODY.contains = DEFAULT_CONTAINS;
   COLLECTION.contains = DEFAULT_CONTAINS;
+  HINT_COL.contains = [COLLECTION];
 
   return {
     aliases: ['clj'],

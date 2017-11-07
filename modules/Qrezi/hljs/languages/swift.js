@@ -1,21 +1,21 @@
 /*
 Language: Swift
 Author: Chris Eidhof <chris@eidhof.nl>
-Contributors: Nate Cook <natecook@gmail.com>
+Contributors: Nate Cook <natecook@gmail.com>, Alexander Lichter <manniL@gmx.net>
 Category: system
 */
 
 
 function(hljs) {
   var SWIFT_KEYWORDS = {
-      keyword: 'class deinit enum extension func init let protocol static ' +
-        'struct subscript typealias var break case continue default do ' +
-        'else fallthrough if in for return switch where while as dynamicType ' +
-        'is super self Self Type __COLUMN__ __FILE__ __FUNCTION__ ' +
-        '__LINE__ associativity didSet get infix inout left mutating none ' +
-        'nonmutating operator override postfix precedence prefix right set ' +
-        'unowned weak willSet defer repeat guard catch ' +
-        'throw throws rethrows try try! try? indirect convenience _ optional',
+      keyword: '__COLUMN__ __FILE__ __FUNCTION__ __LINE__ as as! as? associativity ' +
+        'break case catch class continue convenience default defer deinit didSet do ' +
+        'dynamic dynamicType else enum extension fallthrough false fileprivate final for func ' +
+        'get guard if import in indirect infix init inout internal is lazy left let ' +
+        'mutating nil none nonmutating open operator optional override postfix precedence ' +
+        'prefix private protocol Protocol public repeat required rethrows return ' +
+        'right self Self set static struct subscript super switch throw throws true ' +
+        'try try! try? Type typealias unowned var weak where while willSet',
       literal: 'true false nil',
       built_in: 'abs advance alignof alignofValue anyGenerator assert assertionFailure ' +
         'bridgeFromObjectiveC bridgeFromObjectiveCUnconditional bridgeToObjectiveC ' +
@@ -36,7 +36,7 @@ function(hljs) {
 
   var TYPE = {
     className: 'type',
-    begin: '\\b[A-Z][\\w\']*',
+    begin: '\\b[A-Z][\\w\u00C0-\u02B8\']*',
     relevance: 0
   };
   var BLOCK_COMMENT = hljs.COMMENT(
@@ -71,17 +71,14 @@ function(hljs) {
       TYPE,
       NUMBERS,
       {
-        className: 'func',
+        className: 'function',
         beginKeywords: 'func', end: '{', excludeEnd: true,
         contains: [
           hljs.inherit(hljs.TITLE_MODE, {
-            begin: /[A-Za-z$_][0-9A-Za-z$_]*/,
-            illegal: /\(/
+            begin: /[A-Za-z$_][0-9A-Za-z$_]*/
           }),
           {
-            className: 'generics',
-            begin: /</, end: />/,
-            illegal: />/
+            begin: /</, end: />/
           },
           {
             className: 'params',
@@ -106,11 +103,11 @@ function(hljs) {
         end: '\\{',
         excludeEnd: true,
         contains: [
-          hljs.inherit(hljs.TITLE_MODE, {begin: /[A-Za-z$_][0-9A-Za-z$_]*/})
+          hljs.inherit(hljs.TITLE_MODE, {begin: /[A-Za-z$_][\u00C0-\u02B80-9A-Za-z$_]*/})
         ]
       },
       {
-        className: 'preprocessor', // @attributes
+        className: 'meta', // @attributes
         begin: '(@warn_unused_result|@exported|@lazy|@noescape|' +
                   '@NSCopying|@NSManaged|@objc|@convention|@required|' +
                   '@noreturn|@IBAction|@IBDesignable|@IBInspectable|@IBOutlet|' +

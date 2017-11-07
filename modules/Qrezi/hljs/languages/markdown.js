@@ -3,7 +3,7 @@ Language: Markdown
 Requires: xml.js
 Author: John Crepezzi <john.crepezzi@gmail.com>
 Website: http://seejohncode.com/
-Category: common
+Category: common, markup
 */
 
 function(hljs) {
@@ -12,7 +12,7 @@ function(hljs) {
     contains: [
       // highlight headers
       {
-        className: 'header',
+        className: 'section',
         variants: [
           { begin: '^#{1,6}', end: '$' },
           { begin: '^.+?\\n[=-]{2,}$' }
@@ -46,22 +46,27 @@ function(hljs) {
       },
       // blockquotes
       {
-        className: 'blockquote',
+        className: 'quote',
         begin: '^>\\s+', end: '$'
       },
       // code snippets
       {
         className: 'code',
         variants: [
-          { begin: '`.+?`' },
-          { begin: '^( {4}|\t)', end: '$'
-          , relevance: 0
+          {
+            begin: '^```\w*\s*$', end: '^```\s*$'
+          },
+          {
+            begin: '`.+?`'
+          },
+          {
+            begin: '^( {4}|\t)', end: '$',
+            relevance: 0
           }
         ]
       },
       // horizontal rules
       {
-        className: 'horizontal_rule',
         begin: '^[-\\*]{3,}', end: '$'
       },
       // using links - title and link
@@ -70,19 +75,19 @@ function(hljs) {
         returnBegin: true,
         contains: [
           {
-            className: 'link_label',
+            className: 'string',
             begin: '\\[', end: '\\]',
             excludeBegin: true,
             returnEnd: true,
             relevance: 0
           },
           {
-            className: 'link_url',
+            className: 'link',
             begin: '\\]\\(', end: '\\)',
             excludeBegin: true, excludeEnd: true
           },
           {
-            className: 'link_reference',
+            className: 'symbol',
             begin: '\\]\\[', end: '\\]',
             excludeBegin: true, excludeEnd: true
           }
@@ -90,17 +95,18 @@ function(hljs) {
         relevance: 10
       },
       {
-        begin: '^\\[\.+\\]:',
+        begin: /^\[[^\n]+\]:/,
         returnBegin: true,
         contains: [
           {
-            className: 'link_reference',
-            begin: '\\[', end: '\\]:',
-            excludeBegin: true, excludeEnd: true,
-            starts: {
-              className: 'link_url',
-              end: '$'
-            }
+            className: 'symbol',
+            begin: /\[/, end: /\]/,
+            excludeBegin: true, excludeEnd: true
+          },
+          {
+            className: 'link',
+            begin: /:\s*/, end: /$/,
+            excludeBegin: true
           }
         ]
       }

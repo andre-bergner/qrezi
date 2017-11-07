@@ -10,7 +10,7 @@ function(hljs) {
     aliases: ['patch'],
     contains: [
       {
-        className: 'chunk',
+        className: 'meta',
         relevance: 10,
         variants: [
           {begin: /^@@ +\-\d+,\d+ +\+\d+,\d+ +@@$/},
@@ -19,13 +19,13 @@ function(hljs) {
         ]
       },
       {
-        className: 'header',
+        className: 'comment',
         variants: [
           {begin: /Index: /, end: /$/},
-          {begin: /=====/, end: /=====$/},
-          {begin: /^\-\-\-/, end: /$/},
+          {begin: /={3,}/, end: /$/},
+          {begin: /^\-{3}/, end: /$/},
           {begin: /^\*{3} /, end: /$/},
-          {begin: /^\+\+\+/, end: /$/},
+          {begin: /^\+{3}/, end: /$/},
           {begin: /\*{5}/, end: /\*{5}$/}
         ]
       },
@@ -38,7 +38,7 @@ function(hljs) {
         begin: '^\\-', end: '$'
       },
       {
-        className: 'change',
+        className: 'addition',
         begin: '^\\!', end: '$'
       }
     ]

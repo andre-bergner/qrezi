@@ -10,10 +10,14 @@ function (hljs) {
     keywords: 'Feature Background Ability Business\ Need Scenario Scenarios Scenario\ Outline Scenario\ Template Examples Given And Then But When',
     contains: [
       {
-        className: 'keyword',
-        begin: '\\*'
+        className: 'symbol',
+        begin: '\\*',
+        relevance: 0
       },
-      hljs.COMMENT('@[^@\r\n\t ]+', '$'),
+      {
+        className: 'meta',
+        begin: '@[^@\\s]+'
+      },
       {
         begin: '\\|', end: '\\|\\w*$',
         contains: [

@@ -9,6 +9,9 @@ Item {
 
    property alias boundsBehavior: flickable.boundsBehavior
 
+   height: 300
+   width:  code_item.contentWidth
+
    Flickable
    {
       id: flickable
@@ -17,17 +20,17 @@ Item {
       anchors.fill: parent
 
       boundsBehavior: Flickable.StopAtBounds
-
       flickableDirection: Flickable.VerticalFlick
-      clip: true
 
       contentWidth:  code_item.width
       contentHeight: code_item.height
-      height: contentHeight
+
+      clip: true
 
       Code
       {
          id: code_item
+         width: flickable.width
          code:"
    foo()
    bar()
@@ -36,8 +39,6 @@ Item {
    auto x = [](){};
    auto y = []{}();
    "
-
-         width:  flickable.width
       }
 
    }

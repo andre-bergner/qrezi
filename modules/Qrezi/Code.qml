@@ -4,6 +4,7 @@ import "hljs/highlight.js" as HLJS
 import "hljs/languages/cpp.js"        as Lang_cpp
 import "hljs/languages/javascript.js" as Lang_javascript
 import "hljs/languages/haskell.js"    as Lang_haskell
+import "hljs/languages/qml.js"        as Lang_qml
 import "hljs/languages/x86asm.js"     as Lang_x86asm
 
 
@@ -16,6 +17,10 @@ Rectangle {
    property string style:     "monokai"
 
    property alias  font: text_item.font
+
+   property alias contentWidth: text_item.contentWidth
+   property alias contentHeight: text_item.contentHeight
+
 
    color: text_item.background_from_css
 
@@ -48,7 +53,8 @@ Rectangle {
          var ls = [ ["c++"        , Lang_cpp        ]
                   , ["javascript" , Lang_javascript ]
                   , ["haskell"    , Lang_haskell    ]
-                  , ["x86asm"    , Lang_x86asm      ]
+                  , ["qml"        , Lang_qml        ]
+                  , ["x86asm"     , Lang_x86asm     ]
                   ]
          ls.forEach( function(l){ hljs.registerLanguage( l[0], l[1].register ) })
          return hljs
@@ -57,7 +63,7 @@ Rectangle {
       function get_background_from_css(css) {
          var match_trials = 10    // for some very weird reason a match might fail several times
          for ( var match = null ; ! match && match_trials ; --match_trials )
-            match = /background:\s*([#1-9a-zA-Z].+);/g.exec(css)
+            match = /background:\s*([#1-9a-zA-Z].+?);/g.exec(css)
          return match ? match[1] : "#fff"
       }
 

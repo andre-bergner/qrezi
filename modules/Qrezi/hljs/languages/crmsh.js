@@ -29,9 +29,7 @@ function(hljs) {
     aliases: ['crm', 'pcmk'],
     case_insensitive: true,
     keywords: {
-      keyword: KEYWORDS,
-      operator: OPERATORS,
-      type: TYPES,
+      keyword: KEYWORDS + ' ' + OPERATORS + ' ' + TYPES,
       literal: LITERALS
     },
     contains: [
@@ -39,7 +37,6 @@ function(hljs) {
       {
         beginKeywords: 'node',
         starts: {
-          className: 'identifier',
           end: '\\s*([\\w_-]+:)?',
           starts: {
             className: 'title',
@@ -53,28 +50,28 @@ function(hljs) {
           className: 'title',
           end: '\\s*[\\$\\w_][\\w_-]*',
           starts: {
-            className: 'pragma',
-            end: '\\s*@?[\\w_][\\w_\\.:-]*',
+            end: '\\s*@?[\\w_][\\w_\\.:-]*'
           }
         }
       },
       {
-        beginKeywords: COMMANDS,
+        begin: '\\b(' + COMMANDS.split(' ').join('|') + ')\\s+',
+        keywords: COMMANDS,
         starts: {
           className: 'title',
-          end: '\\s*[\\$\\w_][\\w_-]*',
+          end: '[\\$\\w_][\\w_-]*'
         }
       },
       {
         beginKeywords: PROPERTY_SETS,
         starts: {
-          className: 'identifier',
+          className: 'title',
           end: '\\s*([\\w_-]+:)?'
         }
       },
       hljs.QUOTE_STRING_MODE,
       {
-        className: 'pragma',
+        className: 'meta',
         begin: '(ocf|systemd|service|lsb):[\\w_:-]+',
         relevance: 0
       },
@@ -84,12 +81,12 @@ function(hljs) {
         relevance: 0
       },
       {
-        className: 'number',
-        begin: '[-]?(inf|infinity)',
+        className: 'literal',
+        begin: '[-]?(infinity|inf)',
         relevance: 0
       },
       {
-        className: 'variable',
+        className: 'attr',
         begin: /([A-Za-z\$_\#][\w_-]+)=/,
         relevance: 0
       },
