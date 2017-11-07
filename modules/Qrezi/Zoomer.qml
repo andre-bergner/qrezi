@@ -71,7 +71,7 @@ Item {
          var r = get_rect(current_frame)
          translator.x  =  -r.x + (root.width - r.width) / 2
          translator.y  =  -r.y + (root.height - r.height) / 2
-         scaler.scale  =  1.0 / ( r.scale * Math.max( s.width / root.width, s.height / root.height ) )
+         scaler.scaleTo =  1.0 / ( r.scale * Math.max( s.width / root.width, s.height / root.height ) )
          rotator.angle -= bound_angle( rotator.angle + r.rotation )
       }
 
@@ -89,12 +89,20 @@ Item {
          },
          Scale {
             id: scaler
+            property real scaleTo: 1
             property real scale: 1
             xScale: scale
             yScale: scale
             origin.x: root.width/2
             origin.y: root.height/2
-            Behavior on scale { NumberAnimation { duration: animation_time; easing.type: Easing.InOutCubic } id: scaleAni }
+            onScaleToChanged: {
+               scaleAni.easing.type = (scale < scaleTo) ? Easing.InQuint : Easing.OutQuint
+               scale = scaleTo
+            }
+            Behavior on scale {
+               id: scaleBehav
+               NumberAnimation { id: scaleAni; duration: animation_time; easing.type: Easing.InCubic }
+            }
          }
       ]
    }
@@ -163,10 +171,10 @@ Item {
             return
          }
 
-         scaleAni.enabled = false
+         scaleBehav.enabled = false
          if (wheel.angleDelta.y < 0) scaler.scale /= 1. - 0.001 * wheel.angleDelta.y
          else                        scaler.scale *= 1. + 0.001 * wheel.angleDelta.y
-         scaleAni.enabled = true
+         scaleBehav.enabled = true
       }
 
    }
