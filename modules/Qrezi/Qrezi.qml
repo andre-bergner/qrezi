@@ -45,12 +45,19 @@ Item {
 
 
       property variant slides: this.frames
+
+      property variant flat_slides: flatten(slides)
+
       property int current_slide: 0
 
-      onCurrent_slideChanged: current_frame = slides[current_slide]
+      onCurrent_slideChanged: current_frame = flat_slides[current_slide]
 
 
-
+      function flatten(arr) {
+         return arr.reduce(function (flat, toFlatten) {
+            return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
+         }, []);
+      }
 
 
       focus: true
@@ -127,7 +134,7 @@ Item {
 
       function contains(xs,x) { return  xs.indexOf(x) != -1 }
 
-      function is_slide(s) { return contains(slides,s) }
+      function is_slide(s) { return contains(flat_slides,s) }
 
       function first_of( xs , p )
       {
@@ -138,7 +145,7 @@ Item {
 
       function closest_slide( f )
       {
-         return  first_of( ancestors(f), is_slide ) || slides[0]
+         return  first_of( ancestors(f), is_slide ) || flat_slides[0]
       }
 
       function next_view()
@@ -149,21 +156,21 @@ Item {
          //else
             if ( next_state() ) return
 
-         if ( contains( slides, current_frame ) ) current_slide = mod(current_slide+1, slides.length)
+         if ( contains( flat_slides, current_frame ) ) current_slide = mod(current_slide+1, flat_slides.length)
          else  {
             current_frame = closest_slide( current_frame )
-            current_slide = slides.indexOf( current_frame )
+            current_slide = flat_slides.indexOf( current_frame )
          }
-         // does not work?: else  current_slide = slides.indexOf( closest_slide( current_frame ) )
+         // does not work?: else  current_slide = flat_slides.indexOf( closest_slide( current_frame ) )
       }
 
       function prev_view()
       {
          if ( prev_state() )  return
-         if ( contains( slides, current_frame ) ) current_slide = mod(current_slide-1, slides.length)
+         if ( contains( flat_slides, current_frame ) ) current_slide = mod(current_slide-1, flat_slides.length)
          else  {
             current_frame = closest_slide( current_frame )
-            current_slide = slides.indexOf( current_frame )
+            current_slide = flat_slides.indexOf( current_frame )
          }
       }
    }
