@@ -2,9 +2,16 @@ module Qrezi
 
 Qrezi          0.1   Qrezi.qml
 Zoomer         0.1   Zoomer.qml
+OriginScale    0.1   OriginScale.qml
 Code           0.1   Code.qml
 CodeView       0.1   CodeView.qml
 CodeWithText   0.1   CodeWithText.qml
 Flipper        0.1   Flipper.qml
 Topic          0.1   Topic.qml
 Frame          0.1   Frame.qml
+MarkdownSlides 0.1   MarkdownSlides.qml
+Heading        0.1   Heading.qml
+Paragraph      0.1   Paragraph.qml
+Slide          0.1   Slide.qml
+BasicSlide     0.1   BasicSlide.qml
+Epic           0.1   Epic.qml
