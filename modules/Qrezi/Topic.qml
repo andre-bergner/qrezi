@@ -19,7 +19,7 @@ Frame {
     property int font_size12: font_size
     property int font_size2:  font_size
     property int font_size22: font_size
-    property variant font_color: qrezi_config.text_color
+    property variant font_color: qrezi_style.text_color
 
     property real x1: 80
     property real y1: 100
