@@ -12,7 +12,7 @@ Rectangle {
 
    id: item
 
-   property string code:      "template<int n> class Goedel : Goedel<n-1> {};"
+   property string code:      "template<int n> class Goedel : Goedel<n-1> {};\nGoedel<1337> goedel;\n"
    property string language:  "c++"
    property string style:     "monokai"
 
@@ -21,6 +21,10 @@ Rectangle {
    property alias contentWidth: text_item.contentWidth
    property alias contentHeight: text_item.contentHeight
 
+   property int num_lines: code.split('\n').length
+   function y_at_line(line_number) {
+      return (line_number-1) * contentHeight/num_lines;
+   }
 
    color: text_item.background_from_css
 

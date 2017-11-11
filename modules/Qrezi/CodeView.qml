@@ -9,8 +9,10 @@ Item {
 
    property alias boundsBehavior: flickable.boundsBehavior
 
-   height: 300
-   width:  code_item.contentWidth
+   height: code_item.contentHeight / 2
+   width:  code_item.contentWidth + 30
+
+   function goto_line(line) { flickable.contentY = code_item.y_at_line(line); }
 
    Flickable
    {
@@ -25,20 +27,27 @@ Item {
       contentWidth:  code_item.width
       contentHeight: code_item.height
 
+      Behavior on contentY {
+         NumberAnimation {
+             duration: 800
+             easing.type: Easing.InOutQuint
+         }
+      }
+
       clip: true
 
       Code
       {
          id: code_item
          width: flickable.width
-         code:"
-   foo()
-   bar()
-   baz<1,2,3>(4,5,6)
+         code:
+"foo()
+bar()
+baz<1,2,3>(4,5,6)
 
-   auto x = [](){};
-   auto y = []{}();
-   "
+auto x = [](){};
+auto y = []{}();
+"
       }
 
    }
