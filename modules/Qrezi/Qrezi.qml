@@ -11,6 +11,8 @@ Item {
    height: config.slide_height
 
    property alias slides: zoomer.slides
+   readonly property alias flat_slides: zoomer.flat_slides
+
    property alias current_slide: zoomer.current_slide
    property alias current_frame: zoomer.current_frame
 
