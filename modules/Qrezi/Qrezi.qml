@@ -13,6 +13,9 @@ Item {
    property alias slides: zoomer.slides
    readonly property alias flat_slides: zoomer.flat_slides
 
+   // TODO: make current_frame private
+   onFlat_slidesChanged: current_frame = flat_slides[0]
+
    property alias current_slide: zoomer.current_slide
    property alias current_frame: zoomer.current_frame
 
