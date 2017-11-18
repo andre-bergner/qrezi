@@ -2,7 +2,47 @@
 
 qrezi is a presentation framework written in QML and inspired by [prezi](http://www.prezi.com), thus the name (p → q).
 
-## How to use qrezi
+
+## Make a qrezi
+
+A qrezi presentation is written directly in QML in a declarative style. Here is a basic example:
+
+```qml
+import QtQuick 2.2
+import Qrezi 0.1
+
+Qrezi {
+
+   slides: [title, content, conclusions]
+
+   Column {
+      Slide {
+         id: title
+         Heading { text: "Hello Qrezi"}
+         Paragraph { text: "You can navigate using the left & right arrow key or space." }
+      }
+
+      Slide {
+         id: content
+         Heading { text: "Hello World"}
+         Paragraph { text: "lorem ipsum ..."}
+         Paragraph { text: "more bla bla bla ..."}
+      }
+
+      Slide {
+         id: conclusions
+         Heading { text: "Conclusions"}
+         Paragraph { text: "This is just aweseome."}
+         Paragraph { text: "It's really great."}
+      }
+
+   }
+}
+```
+
+
+
+## Running qrezi
 
 qrezi presentations can be played directly with [qmlscene](http://doc.qt.io/qt-5/qtquick-qmlscene.html),
 the QML player coming with the default [Qt5](http://doc.qt.io/qt-5) installation.
