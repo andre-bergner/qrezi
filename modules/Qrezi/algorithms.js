@@ -1,4 +1,14 @@
 
+function descendants(c)
+{
+   var ds = []
+   ds.push(c)
+   for (var n in c.children)
+      ds.push.apply( ds, descendants(c.children[n]) )
+   return ds
+}
+
+
 function ancestors(p)
 {
    var ps = []

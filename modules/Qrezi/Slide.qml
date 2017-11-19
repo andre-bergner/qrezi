@@ -9,7 +9,7 @@ Frame {
    default property alias column: column_item.children
    property alias background: background_holder.children
    property alias spacing: column_item.spacing
-
+   property bool add_to_qrezi: true
 
    Item {
       id: background_holder

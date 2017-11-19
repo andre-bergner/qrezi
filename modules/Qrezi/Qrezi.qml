@@ -1,4 +1,5 @@
 import QtQuick 2.2
+import "algorithms.js" as A
 
 Item {
 
@@ -12,12 +13,7 @@ Item {
 
    property alias slides: zoomer.slides
    readonly property alias flat_slides: zoomer.flat_slides
-
-   // TODO: make current_frame private
-   onFlat_slidesChanged: current_frame = flat_slides[0]
-
-   property alias current_slide: zoomer.current_slide
-   property alias current_frame: zoomer.current_frame
+   readonly property alias current_slide: zoomer.current_slide
 
    default property alias items: zoomer.frames
 
@@ -49,11 +45,23 @@ Item {
       height: slide_height
 
 
-      property variant slides: this.frames
-
-      property variant flat_slides: flatten(slides)
-
+      property variant slides;
+      property variant flat_slides;
       property int current_slide: 0
+
+      Component.onCompleted: {
+         if (slides)
+            return;  // user defined own slides order
+
+         zoomer.slides = A.descendants(qrezi).filter( function(c){
+            return c.add_to_qrezi && c.add_to_qrezi === true;
+         });
+      }
+
+      onSlidesChanged: {
+         flat_slides = flatten(slides)
+         current_frame = flat_slides[current_slide]
+      }
 
       onCurrent_slideChanged: current_frame = flat_slides[current_slide]
 
