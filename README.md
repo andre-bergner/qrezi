@@ -12,30 +12,22 @@ import QtQuick 2.2
 import Qrezi 0.1
 
 Qrezi {
-
-   slides: [title, content, conclusions]
-
    Column {
       Slide {
-         id: title
          Heading { text: "Hello Qrezi"}
          Paragraph { text: "You can navigate using the left & right arrow key or space." }
       }
-
       Slide {
          id: content
          Heading { text: "Hello World"}
          Paragraph { text: "lorem ipsum ..."}
          Paragraph { text: "more bla bla bla ..."}
       }
-
       Slide {
-         id: conclusions
          Heading { text: "Conclusions"}
          Paragraph { text: "This is just aweseome."}
          Paragraph { text: "It's really great."}
       }
-
    }
 }
 ```
