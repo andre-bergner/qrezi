@@ -1,4 +1,5 @@
 import QtQuick 2.2
+import "algorithms.js" as A
 
 Item {
 
@@ -27,20 +28,6 @@ Item {
    // TODO investigate further
    // onWidthChanged:  transformer.updateSlides()
    // onHeightChanged: transformer.updateSlides()
-
-   function ancestors(p)
-   {
-      var ps = []
-      while ( p = p.parent ) ps.push(p)
-      return ps
-   }
-
-   function any_of( xs, p )
-   {
-      for ( var n = 0; n < xs.length; ++n )
-         if (p(xs[n])) return true
-      return false
-   }
 
    Item {
 
@@ -101,7 +88,7 @@ Item {
             }
             Behavior on scale {
                id: scaleBehav
-               NumberAnimation { id: scaleAni; duration: animation_time; easing.type: Easing.InCubic }
+               NumberAnimation { id: scaleAni; duration: animation_time; easing.type: Easing.InQuint }
             }
          }
       ]
@@ -116,7 +103,6 @@ Item {
       property var  _canvas_pos:     Qt.point(0,0)
       property var  _mouse_pos:      Qt.point(0,0)
       property bool _started_moving: false
-
 
       function item_at( item, p ) {
          var child = item.childAt( p.x, p.y )
@@ -165,7 +151,7 @@ Item {
          // TODO find better solution, flickable should be able to steal, requires bubble up events
          var p = transformer.mapFromItem( this, wheel.x, wheel.y )
          var child = item_at( transformer, p )
-         if ( any_of( ancestors(child) , function(p){ return p.objectName == "CodeView" }) )
+         if ( A.any_of( A.ancestors(child) , function(p){ return p.objectName == "CodeView" }) )
          {
             wheel.accepted = false
             return
