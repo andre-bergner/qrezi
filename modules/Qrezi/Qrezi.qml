@@ -158,7 +158,7 @@ Item {
 
       function closest_slide( f )
       {
-         return  first_of( ancestors(f), is_slide ) || flat_slides[0]
+         return  first_of( A.ancestors(f), is_slide ) || flat_slides[0]
       }
 
       function next_view()
