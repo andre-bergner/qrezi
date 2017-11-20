@@ -145,13 +145,12 @@ Item {
       }
 
       onWheel: {
-
-         // This is a little hack to forward wheel event to flickables and don't scroll
-         // Unfortunately this requeires to know the name (or type) of the item
-         // TODO find better solution, flickable should be able to steal, requires bubble up events
          var p = transformer.mapFromItem( this, wheel.x, wheel.y )
          var child = item_at( transformer, p )
-         if ( A.any_of( A.ancestors(child) , function(p){ return p.objectName == "CodeView" }) )
+         var wants_wheel = function(p) {
+            return p.wants_wheel_events && p.wants_wheel_events === true;
+         };
+         if ( A.any_of( A.ancestors(child), wants_wheel ))
          {
             wheel.accepted = false
             return

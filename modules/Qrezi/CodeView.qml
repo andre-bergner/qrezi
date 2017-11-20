@@ -2,7 +2,7 @@ import QtQuick 2.2
 
 Item {
 
-   objectName: "CodeView"
+   readonly property bool wants_wheel_events: true
 
    property alias code:       code_item.code
    property alias font:       code_item.font
