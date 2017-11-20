@@ -2,6 +2,8 @@ import QtQuick 2.2
 
 Item {
 
+   objectName: "CodeView"
+
    property alias code:       code_item.code
    property alias font:       code_item.font
    property alias language:   code_item.language
@@ -9,15 +11,16 @@ Item {
 
    property alias boundsBehavior: flickable.boundsBehavior
 
-   height: code_item.contentHeight / 2
-   width:  code_item.contentWidth + 30
+   height: Math.max( code_item.height, 400 )   // TODO max must adapt to external situation
+   width:  code_item.width
 
    function goto_line(line) { flickable.contentY = code_item.y_at_line(line); }
 
    Flickable
    {
       id: flickable
-      objectName: "CodeView"
+
+      //contentY: code_item.y_at_line(3)
 
       anchors.fill: parent
 
@@ -39,7 +42,6 @@ Item {
       Code
       {
          id: code_item
-         width: flickable.width
          code:
 "foo()
 bar()

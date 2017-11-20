@@ -12,6 +12,10 @@ Rectangle {
 
    id: code_item
 
+   width: text_item.contentWidth + 2*row_item.anchors.margins
+        + (show_line_numbers ? (line_numbers_item.contentWidth + row_item.spacing) : 0)
+   height: text_item.contentHeight + 2*row_item.anchors.margins
+
    property string code:      "template<int n> class Goedel : Goedel<n-1> {};\nGoedel<1337> goedel;\n"
    property string language:  "c++"
    property string style:     "monokai"
@@ -36,9 +40,6 @@ Rectangle {
                               ? Qt.lighter(color, 3)
                               : Qt.darker(color, 3)
    }
-
-
-   height: text_item.contentHeight
 
 
    Row {
