@@ -39,7 +39,7 @@ Item {
 
       clip: true
 
-      Code
+      CodeItem
       {
          id: code_item
          code:
