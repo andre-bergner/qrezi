@@ -20,12 +20,12 @@ Qrezi {
       Slide {
          id: content
          Heading { text: "Hello World"}
-         Paragraph { text: "lorem ipsum ..."}
-         Paragraph { text: "more bla bla bla ..."}
+         Paragraph { text: "Easily add code:"}
+         Code { text: "int main() { lorem_ipsum(); }" }
       }
       Slide {
          Heading { text: "Conclusions"}
-         Paragraph { text: "This is just aweseome."}
+         Paragraph { text: "This is just aweseome !!!11"}
          Paragraph { text: "It's really great."}
       }
    }
