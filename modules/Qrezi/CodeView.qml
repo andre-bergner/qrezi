@@ -8,10 +8,11 @@ Item {
    property alias font:       code_item.font
    property alias language:   code_item.language
    property alias style:      code_item.style
+   property alias show_line_numbers:  code_item.show_line_numbers
 
    property alias boundsBehavior: flickable.boundsBehavior
 
-   height: Math.max( code_item.height, 400 )   // TODO max must adapt to external situation
+   height: Math.min( code_item.height, 400 )   // TODO max must adapt to external situation
    width:  code_item.implicitWidth
 
    function goto_line(line) { flickable.contentY = code_item.y_at_line(line); }
