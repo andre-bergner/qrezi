@@ -4,7 +4,7 @@ Item {
 
    readonly property bool wants_wheel_events: true
 
-   property alias code:       code_item.code
+   property alias text:       code_item.text
    property alias font:       code_item.font
    property alias language:   code_item.language
    property alias style:      code_item.style
@@ -12,7 +12,7 @@ Item {
    property alias boundsBehavior: flickable.boundsBehavior
 
    height: Math.max( code_item.height, 400 )   // TODO max must adapt to external situation
-   width:  code_item.width
+   width:  code_item.implicitWidth
 
    function goto_line(line) { flickable.contentY = code_item.y_at_line(line); }
 
@@ -42,14 +42,7 @@ Item {
       CodeItem
       {
          id: code_item
-         code:
-"foo()
-bar()
-baz<1,2,3>(4,5,6)
-
-auto x = [](){};
-auto y = []{}();
-"
+         width: flickable.width
       }
 
    }

@@ -12,11 +12,14 @@ Rectangle {
 
    id: code_item
 
-   width: text_item.contentWidth + 2*row_item.anchors.margins
-        + (show_line_numbers ? (line_numbers_item.contentWidth + row_item.spacing) : 0)
-   height: text_item.contentHeight + 2*row_item.anchors.margins
+   implicitWidth: text_item.contentWidth + 2*row_item.anchors.margins
+                + (show_line_numbers ? (line_numbers_item.contentWidth + row_item.spacing) : 0)
+   implicitHeight: text_item.contentHeight + 2*row_item.anchors.margins
 
-   property string code:      "template<int n> class Goedel : Goedel<n-1> {};\nGoedel<1337> goedel;\n"
+   width: implicitWidth
+   height: implicitHeight
+
+   property string text:      "template<int n> class Goedel : Goedel<n-1> {};\nGoedel<1337> goedel;\n"
    property string language:  "c++"
    property string style:     "monokai"
    property bool show_line_numbers:  true
@@ -25,7 +28,7 @@ Rectangle {
    readonly property int contentWidth: text_item.contentWidth
    readonly property int contentHeight: text_item.contentHeight
 
-   property int num_lines: code.split('\n').length
+   property int num_lines: text.split('\n').length
 
    function y_at_line(line_number) {
       return (line_number-1) * contentHeight/num_lines;
@@ -79,7 +82,7 @@ Rectangle {
 
          Component.onCompleted: load_css_file( "hljs/styles/" + code_item.style + ".css" )
 
-         text: add_css( highlight( code_item.code ), _css )
+         text: add_css( highlight( code_item.text ), _css )
 
 
          //  ---------------------------------------------------------------------------------

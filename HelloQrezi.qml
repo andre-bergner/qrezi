@@ -4,7 +4,7 @@ import Qrezi 0.1
 Qrezi {
 
    // You can override the default order of slides:
-   // slides: [s3, slide1]
+   // slides: [slide3, slide1]
 
    Column {
       Slide {
@@ -30,7 +30,6 @@ Qrezi {
                 + "layout items."
          }
          Rectangle {
-            id: slide2
             property bool add_to_qrezi: true
             width: 150
             height: 50
@@ -44,11 +43,13 @@ Qrezi {
       }
 
       Slide {
-         id: s3
+         id: slide3
          Heading { text: "Code"}
          Paragraph { text: "You can easily add color highlighted code blocks:" }
-         CodeView {
-            code: 'int main(){ printf("Hello qrezi!"); }\n\n\n\n\n\n\n\n\n\n'
+         Code {
+            text: 'int main(){\n'+
+                  '   printf("Hello qrezi!");\n'+
+                  '}'
             height: 150
          }
       }
