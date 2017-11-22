@@ -19,4 +19,5 @@ QtObject {
       weight:  Font.Light
    }
 
+   property string code_style: "monokai"
 }

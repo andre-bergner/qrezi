@@ -1,6 +1,7 @@
 import QtQuick 2.2
-import "hljs/highlight.js" as HLJS
+import "qrezi_tools.js" as Tools
 
+import "hljs/highlight.js"            as HLJS
 import "hljs/languages/cpp.js"        as Lang_cpp
 import "hljs/languages/javascript.js" as Lang_javascript
 import "hljs/languages/haskell.js"    as Lang_haskell
@@ -12,6 +13,8 @@ Rectangle {
 
    id: code_item
 
+   readonly property variant qrezi_style: Tools.qrezi_style()
+
    implicitWidth: text_item.contentWidth + 2*row_item.anchors.margins
                 + (show_line_numbers ? (line_numbers_item.contentWidth + row_item.spacing) : 0)
    implicitHeight: text_item.contentHeight + 2*row_item.anchors.margins
@@ -21,7 +24,7 @@ Rectangle {
 
    property string text:      "template<int n> class Goedel : Goedel<n-1> {};\nGoedel<1337> goedel;\n"
    property string language:  "c++"
-   property string style:     "monokai"
+   property string style:     qrezi_style.code_style
    property bool show_line_numbers:  true
    property alias font: text_item.font
 
