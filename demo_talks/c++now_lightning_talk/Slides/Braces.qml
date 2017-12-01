@@ -29,7 +29,7 @@ Item {
         language: "c++"
         font.pointSize: 30
 
-        code:
+        text:
 "int main()
  {
     [](){};
