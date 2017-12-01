@@ -95,11 +95,11 @@ Rectangle {
       }
 
 
-      Code {
+      CodeItem {
 
          id:   slide3
 
-         code:
+      text:
 "
 template< typename X >
 struct fency {
@@ -140,7 +140,7 @@ int main() { std::cout << fency::foo() << std::endl;  }
          height:  400
 
          font.pointSize: 30
-         code:
+         text:
 "
 var head = function( xs ) {
    return xs[0]

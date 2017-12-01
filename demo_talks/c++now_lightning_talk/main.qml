@@ -48,8 +48,6 @@ Qrezi {
             , this_presi
             ]
 
-   current_frame: title
-
    Frame {
       id: title
 
