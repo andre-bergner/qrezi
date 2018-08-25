@@ -7,6 +7,7 @@ import "hljs/languages/javascript.js" as Lang_javascript
 import "hljs/languages/haskell.js"    as Lang_haskell
 import "hljs/languages/qml.js"        as Lang_qml
 import "hljs/languages/x86asm.js"     as Lang_x86asm
+import "hljs/languages/xml.js"        as Lang_xml
 
 
 Rectangle {
@@ -99,6 +100,7 @@ Rectangle {
                      , ["haskell"    , Lang_haskell    ]
                      , ["qml"        , Lang_qml        ]
                      , ["x86asm"     , Lang_x86asm     ]
+                     , ["xml"        , Lang_xml        ]
                      ]
             ls.forEach( function(l){ hljs.registerLanguage( l[0], l[1].register ) })
             return hljs

@@ -3,7 +3,7 @@ Language: HTML, XML
 Category: common
 */
 
-function(hljs) {
+var register = function(hljs) {
   var XML_IDENT_RE = '[A-Za-z0-9\\._:-]+';
   var TAG_INTERNALS = {
     endsWithParent: true,
