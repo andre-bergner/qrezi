@@ -64,7 +64,8 @@ Rectangle {
          horizontalAlignment: Text.AlignRight
 
          font: code_item.font
-         //textFormat: Text.RichText
+         lineHeightMode: Text.FixedHeight
+         lineHeight: text_item.lineHeight
 
          text: {
             var line_numbers = ""
@@ -83,6 +84,8 @@ Rectangle {
          font.pointSize: 20
          //font.weight: Font.Light
          textFormat: Text.RichText
+         lineHeightMode: Text.FixedHeight
+         lineHeight: font.pixelSize * 1.2
 
          Component.onCompleted: load_css_file( "hljs/styles/" + code_item.style + ".css" )
 
