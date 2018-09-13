@@ -67,9 +67,26 @@ Item {
 
 
       function flatten(arr) {
-         return arr.reduce(function (flat, toFlatten) {
-            return flat.concat(Array.isArray(toFlatten) ? flatten(toFlatten) : toFlatten);
-         }, []);
+
+         // generic function, detects everything that has a length and operator[]
+         function is_array(arr) {
+            if (arr.length === undefined)
+               return false
+            if (arr[arr.length-1] === undefined)
+               return false
+            return true
+         }
+
+         // generic fold, works with any array-like object
+         function fold(f, x0, xs) {
+            for (var n=0; n < xs.length; ++n)
+               x0 = f(x0, xs[n])
+            return x0
+         }
+
+         return fold(function (flat, toFlatten) {
+            return flat.concat(is_array(toFlatten) ? flatten(toFlatten) : toFlatten);
+         }, [], arr);
       }
 
 
