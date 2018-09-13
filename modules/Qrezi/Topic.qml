@@ -1,10 +1,13 @@
-import  QtQuick 2.0
+import  QtQuick 2.2
 import  QtGraphicalEffects  1.0
+import "qrezi_tools.js" as Tools
 import "../"
 
 Frame {
 
     id: slide
+
+    readonly property variant qrezi_style: Tools.qrezi_style()
 
     property alias title:   titleText.text
     property alias bullets: listView.model
@@ -15,7 +18,7 @@ Frame {
     property variant main_point_markers: ["•","●"]
 
     property alias title_size:  titleText.font.pointSize
-    property int font_size:   40
+    property int font_size:   slide.qrezi_style.paragraph_font.size
     property int font_size12: font_size
     property int font_size2:  font_size
     property int font_size22: font_size
@@ -88,15 +91,16 @@ Frame {
             opacity: ( is_marker(modelData[0]) ) || (slide.state === 'state3')
             TalkText {
                 id:             itemText2
-                font.family:    slide.text_font
+                font.family:    slide.qrezi_style.paragraph_font.family
                 font.pointSize: is_marker(modelData[0])
                                 ?  slide.state === 'state3'
                                    ?  slide.font_size12
                                    :  slide.font_size
                                 :  slide.font_size2
+                font.weight:    slide.qrezi_style.paragraph_font.weight
                 textFormat: Text.RichText
                 text:       modelData
-                color:      font_color
+                color:      slide.qrezi_style.paragraph_font.color
                 shadow:     text_shadow
 
                 Behavior on opacity {
