@@ -48,8 +48,6 @@ Qrezi {
             , this_presi
             ]
 
-   current_frame: title
-
    Frame {
       id: title
 
@@ -94,18 +92,18 @@ Qrezi {
       height:  config.slide_height
       x: 0
       y: -800
-      scale: 3
+      scale: 2.5
 
       title: "presentation\nframeworks"
 
       x1: 220
-      y1: 160
+      y1: 150
       x2: 100
       y2: 10
 
-      font_size:  42
-      font_size12: 30
-      font_size2:  22
+      font_size:  30
+      font_size12: 22
+      font_size2:  16
 
 
       bullets:
