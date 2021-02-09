@@ -198,6 +198,10 @@ Item {
          if (prev_frame.leave)
              prev_frame.leave();
 
+         if (current_frame.disableMouseHandling)
+             zoomer.mouseHandling.enabled = false;
+         else zoomer.mouseHandling.enabled = true;
+
          // does not work?: else  current_slide = flat_slides.indexOf( closest_slide( current_frame ) )
       }
 
@@ -220,6 +224,10 @@ Item {
              prev_frame.leaveBackwards();
          else if (prev_frame.leave)
              prev_frame.leave();
+
+         if (current_frame.disableMouseHandling)
+             zoomer.mouseHandling.enabled = false;
+         else zoomer.mouseHandling.enabled = true;
       }
    }
 
