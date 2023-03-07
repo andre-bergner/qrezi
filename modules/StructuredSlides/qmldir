@@ -1,0 +1,7 @@
+module StructuredSlides
+
+DefaultText         1.0 DefaultText.qml
+DefaultSlideText    1.0 DefaultSlideText.qml
+DefaultSubsection   1.0 DefaultSubsection.qml
+Section             1.0 Section.qml
+CodeFrameWithTitle  1.0 CodeFrameWithTitle.qml
