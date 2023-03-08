@@ -186,22 +186,48 @@ Item {
          //else
             if ( next_state() ) return
 
+         var prev_frame = current_frame;
          if ( contains( flat_slides, current_frame ) ) current_slide = mod(current_slide+1, flat_slides.length)
          else  {
             current_frame = closest_slide( current_frame )
             current_slide = flat_slides.indexOf( current_frame )
          }
+
+         if (current_frame.enter)
+             current_frame.enter();
+         if (prev_frame.leave)
+             prev_frame.leave();
+
+         if (current_frame.disableMouseHandling)
+             zoomer.mouseHandling.enabled = false;
+         else zoomer.mouseHandling.enabled = true;
+
          // does not work?: else  current_slide = flat_slides.indexOf( closest_slide( current_frame ) )
       }
 
       function prev_view()
       {
          if ( prev_state() )  return
+
+         var prev_frame = current_frame;
          if ( contains( flat_slides, current_frame ) ) current_slide = mod(current_slide-1, flat_slides.length)
          else  {
             current_frame = closest_slide( current_frame )
             current_slide = flat_slides.indexOf( current_frame )
          }
+
+         if (current_frame.enterBackwards)
+             current_frame.enterBackwards();
+         else if (current_frame.enter)
+             current_frame.enter();
+         if (prev_frame.leaveBackwards)
+             prev_frame.leaveBackwards();
+         else if (prev_frame.leave)
+             prev_frame.leave();
+
+         if (current_frame.disableMouseHandling)
+             zoomer.mouseHandling.enabled = false;
+         else zoomer.mouseHandling.enabled = true;
       }
    }
 

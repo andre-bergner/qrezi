@@ -22,7 +22,7 @@ Flipper {
       style:   "obsidian"
       language: "c++"
       font.pointSize: 30
-      code:
+      text:
 "float x = some_value;
 int temp = (-1)[(int *)(&x+1)];
 ...
@@ -38,7 +38,7 @@ int temp = (-1)[(int *)(&x+1)];
       style:   "obsidian"
       language: "c++"
       font.pointSize: 30
-      code:
+      text:
 "float x = some_value;
 int temp = reinterpret_cast<int&>(x);
 ...

@@ -16,6 +16,8 @@ Item {
    property alias         current_frame:   transformer.current_frame
    property int           animation_time:  800
 
+   property alias mouseHandling: mouseHandling
+
 
    function to_angle( rad )       { return 180 * rad / Math.PI }
    function to_rad( angle )       { return Math.PI * angle / 180 }
@@ -96,6 +98,7 @@ Item {
 
 
    MouseArea {
+      id: mouseHandling
 
       anchors.fill: parent
       propagateComposedEvents: true

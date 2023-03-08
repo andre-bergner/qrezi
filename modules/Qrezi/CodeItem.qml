@@ -7,6 +7,7 @@ import "hljs/languages/javascript.js" as Lang_javascript
 import "hljs/languages/haskell.js"    as Lang_haskell
 import "hljs/languages/qml.js"        as Lang_qml
 import "hljs/languages/x86asm.js"     as Lang_x86asm
+import "hljs/languages/xml.js"        as Lang_xml
 
 
 Rectangle {
@@ -63,7 +64,8 @@ Rectangle {
          horizontalAlignment: Text.AlignRight
 
          font: code_item.font
-         //textFormat: Text.RichText
+         lineHeightMode: Text.FixedHeight
+         lineHeight: text_item.lineHeight
 
          text: {
             var line_numbers = ""
@@ -82,6 +84,8 @@ Rectangle {
          font.pointSize: 20
          //font.weight: Font.Light
          textFormat: Text.RichText
+         lineHeightMode: Text.FixedHeight
+         lineHeight: font.pixelSize * 1.2
 
          Component.onCompleted: load_css_file( "hljs/styles/" + code_item.style + ".css" )
 
@@ -99,6 +103,7 @@ Rectangle {
                      , ["haskell"    , Lang_haskell    ]
                      , ["qml"        , Lang_qml        ]
                      , ["x86asm"     , Lang_x86asm     ]
+                     , ["xml"        , Lang_xml        ]
                      ]
             ls.forEach( function(l){ hljs.registerLanguage( l[0], l[1].register ) })
             return hljs
